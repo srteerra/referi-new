@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Referigames</title>
+  </head>
+  <body>
+    <h1>HELLO WORD</h1>
+    <button id="login">Login</button>
+    <button id="logout">Logout</button>
+    
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
+      import {
+        getAuth,
+        signInWithEmailAndPassword,
+      } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyCi3dQ_fSo0CBvqRBLjvlDlbcsWCGFaBaE",
+        authDomain: "referigames-146eb.firebaseapp.com",
+        databaseURL: "https://referigames-146eb-default-rtdb.firebaseio.com",
+        projectId: "referigames-146eb",
+        storageBucket: "referigames-146eb.appspot.com",
+        messagingSenderId: "799281104085",
+        appId: "1:799281104085:web:e8437ba1484263eb7a0e5c",
+        measurementId: "G-XPGY7EZL6B",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth();
+      //Listen for auth status changes
+      auth.onAuthStateChanged(user=>{
+        console.log(user);
+      })
+
+      document.getElementById("login").addEventListener("click", (e) => {
+        signInWithEmailAndPassword(auth, "admin@example.com", "123456")
+          .then((userCredential) => {
+            // Signed in
+            const user = userCredential.user;
+            console.log(userCredential);
+            // ...
+          })
+          .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+          });
+      });
+      document.getElementById("logout").addEventListener("click",e=>{
+        auth.signOut().then(()=>{
+          console.log("Logout");
+        })
+      })
+    </script>
+  </body>
+</html>
